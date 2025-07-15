@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpEvent, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
+import { DynamicControlType } from './models/dynamic-control-type';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +20,12 @@ export class CredentialService {
 
   public getTypes() : Observable<HttpEvent<string[]>> {
     let options = this.getStandardOptions();
-    options.params = new HttpParams({fromObject: {
-      format: 'json'
-    }});
-
+   
     return this.http.get<string[]>('credential-types.json', options);
   }
 
-  
+  public getFormDefinition() : Observable<HttpEvent<DynamicControlType[]>> {
+      let options = this.getStandardOptions();
+      return this.http.get<DynamicControlType[]>('credentials-europcar.json', options);
+  }
 }
